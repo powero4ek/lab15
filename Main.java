@@ -8,17 +8,17 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        File myFile = new File("test.txt");
-        String str = in.nextLine();
-        Pattern p = Pattern.compile( "(?<!\\S)" + "((25[0-5]|2[0-4]\\d|1\\d\\d|\\d?\\d)\\.){3}" + "(25[0-5]|2[0-4]\\d|1\\d\\d|\\d?\\d)" + "(?!\\S)");
-        Matcher m = p.matcher(str);
-        try(FileWriter fw = new FileWriter("test.txt")) {
-            if (m.find()) {
-                fw.write((m.group()));
-            } else
-                fw.write("Не найдено");
-        }
-        catch (IOException e) {
+        File file = new File("test.txt");
+        System.out.println("Введите ip-aдрес");
+        String ip=in.next();
+        Pattern pattern = Pattern.compile("(((\\d?\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.){3}\\3)");
+        Matcher matcher = pattern.matcher(ip);
+        try (FileWriter fw = new FileWriter("test.txt")){
+            if (matcher.find())
+                fw.write("Корректный IP найден: " + matcher.group(1));
+            else
+                System.out.println("Не найдено");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
